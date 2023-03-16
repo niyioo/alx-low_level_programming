@@ -17,10 +17,10 @@ int main(void)
 	long long int d;
 	float e;
 
-	printf("Size of a char: %zu", sizeof (a));
-	printf("\nSize of an int: %zu", sizeof (b));
-	printf("\nSize of a long int: %zu", sizeof(c));
-	printf("\nSize of a long long int: %zu", sizeof(d));
-	printf("\nSize of a float: %zu", sizeof(e));
+	printf("Size of a char: %zu byte(s)", sizeof(a));
+	printf("\nSize of an int: %zu byte(s)", sizeof(b));
+	printf("\nSize of a long int: %zu byte(s)", sizeof(c));
+	printf("\nSize of a long long int: %zu byte(s)", sizeof(d));
+	printf("\nSize of a float: %zu byte(s)", sizeof(e));
 	return (0);
 }
