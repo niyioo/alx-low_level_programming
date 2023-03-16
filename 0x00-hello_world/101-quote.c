@@ -5,7 +5,8 @@
  * main - Entry point
  * include the library for write() function
  * define defined the message to be printed
- * Use the write function to print the message to standard error file descriptor
+ * Use the write function to print the message to
+ * standard error file descriptor
  * Return 1 to show the program has error
  * Return: Always 0(Success)
  */
