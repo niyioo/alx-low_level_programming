@@ -4,7 +4,7 @@
  * main - Entry point
  *
  * printf to know the size of the
- * folloing data types, char, int, long int,
+ * following data types, char, int, long int,
  * long long int, and float
  *
  * Return: Always 0 (Success)
