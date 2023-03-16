@@ -7,21 +7,20 @@
  * folloing data types, char, int, long int,
  * long long int, and float
  *
- * Return: Always 0 (Succes)
+ * Return: Always 0 (Success)
  */
-int main() {
+int main(void)
+{
+	char a;
+	int b;
+	long int c;
+	long long int d;
+	float e;
 
-  char a;
-  int b;
-  long int c;
-  long long int d;
-  float e;
-
-  printf("char size = %zu", sizeof (a));
-  printf("\nint size = %zu", sizeof (b));
-  printf("\nlong int size = %zu", sizeof(c));
-  printf("\nlong long int size = %zu", sizeof(d));
-  printf("\nfloat size = %zu", sizeof(e));
-
-  return 0;
+	printf("Size of a char: %zu", sizeof (a));
+	printf("\nSize of an int: %zu", sizeof (b));
+	printf("\nSize of a long int: %zu", sizeof(c));
+	printf("\nSize of a long long int: %zu", sizeof(d));
+	printf("\nSize of a float: %zu", sizeof(e));
+	return (0);
 }
