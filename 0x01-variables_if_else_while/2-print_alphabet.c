@@ -1,14 +1,23 @@
 #include <stdio.h>
 
-int main(void) {
-    char letter = 'a';
+/**
+ * main - Entry point
+ * Prints alphabet in lower case
+ *
+ * Return: 0
+ */
 
-    while (letter <= 'z') {
-        putchar(letter);
-        letter++;
-    }
+int main(void)
+{
+	char letter = 'a';
 
-    putchar('\n');
-    return 0;
+	while (letter <= 'z')
+	{
+		purchar(letter);
+		letter++;
+	}
+
+	purchar('\n');
+
+	return (0);
 }
-
