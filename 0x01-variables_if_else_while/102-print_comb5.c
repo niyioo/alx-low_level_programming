@@ -7,25 +7,28 @@
  * Return: 0
  */
 
-int man(void)
+int main(void)
 {
-	int i, j;
+	int i = 0, j = 0;
 
-	for (i = 0; i < 100; i++)
+	while (i < 100)
 	{
-		for (j = i; j < 100; j++)
+		j = i + 1;
+		while (j < 100)
 		{
-			putchar('0' + i / 10);
-			putchar('0' + i % 10);
+			putchar((i / 10) + '0');
+			putchar((i % 10) + '0');
 			putchar(' ');
-			putchar('0' + j / 10);
-			putchar('0' + j % 10);
-			if (i < 99 || j < 99)
+			putchar((j / 10) + '0');
+			putchar((j % 10) + '0');
+			if (i != 98 || j != 99)
 			{
 				putchar(',');
 				putchar(' ');
 			}
+			j++;
 		}
+		i++;
 	}
 
 	putchar('\n');
