@@ -14,5 +14,5 @@ void positive_or_negative(int num)
         else if (num < 0)
                 printf("%d is negative\n", num);
         else
-                printf("The entered number is 0\n");
+                printf("0 is zero\n");
 }
