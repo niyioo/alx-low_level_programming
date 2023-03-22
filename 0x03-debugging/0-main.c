@@ -8,11 +8,8 @@
 
 int main(void)
 {
-	int num;
+	int num = 98;
 	
-	printf("Enter an integer: ");
-	scanf("%d", &num);
-
 	positive_or_negative(num);
 	
 	return (0);
