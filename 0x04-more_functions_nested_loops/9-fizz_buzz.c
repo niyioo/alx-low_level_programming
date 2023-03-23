@@ -1,18 +1,17 @@
 #include <stdio.h>
-#include "main.h"
 
 /**
- * main - Prints a Fizz Buzz program
- * Return: 0
+ * main - entry point
+ *
+ * Return: 0 Success
  */
-
 int main(void)
 {
 	int i;
 
-	for (i = 1; i <= 100; i++)
+	for (i = 1; i < 100; i++)
 	{
-		if (i % 3 == 0 && i % 5 == 0)
+		if ((i % 3 == 0) && (i % 5 == 0))
 		{
 			printf("FizzBuzz ");
 		}
@@ -29,7 +28,6 @@ int main(void)
 			printf("%d ", i);
 		}
 	}
-	printf("\n");
-
+	printf("Buzz\n");
 	return (0);
 }
