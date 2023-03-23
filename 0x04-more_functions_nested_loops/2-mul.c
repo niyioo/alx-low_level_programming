@@ -3,13 +3,13 @@
 
 /**
  * mul - multiples two integer
- * @int a: first integer
- * @int b: second integer
+ * @a: Input
+ * @b: Input
  *
- * Return: 0
+ * Return: Product of inputs
  */
 
 int mul(int a, int b)
 {
-	return a * b;
+	return (a * b);
 }
