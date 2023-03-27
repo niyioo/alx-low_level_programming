@@ -2,22 +2,25 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main(void)
-{
-    char c[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    char p[58] = {'\0'};
-    srand(time(NULL));
-    int s = 0;
-    while (s != 2772) {
-        s = 0;
-        for (int i = 0; i < 57; i++) {
-            int j = rand() % 62;
-            p[i] = c[j];
-            s += c[j];
-        }
-        p[57] = s == 2772 - c[0] ? c[0] : c[2772 - s - c[0]];
+int main(void) {
+  char password[7];
+  int i, num;
+
+  srand(time(NULL));
+
+  for (i = 0; i < 7; i++) {
+    num = rand() % 62;
+    if (num < 26) {
+      password[i] = 'A' + num;
+    } else if (num < 52) {
+      password[i] = 'a' + num - 26;
+    } else {
+      password[i] = '0' + num - 52;
     }
-    printf("%s", p);
-    return 0;
+  }
+
+  printf("%s\n", password);
+
+  return 0;
 }
 
