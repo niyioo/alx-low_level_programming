@@ -4,7 +4,7 @@
 /**
  * main - entry point generates a random password
  *
- * Return: the generated password
+ * Return: 0
  */
 int main(void)
 {
