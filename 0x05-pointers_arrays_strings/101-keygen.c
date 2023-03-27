@@ -9,7 +9,7 @@
 int main(void)
 {
 char c;
-int x;
+int x = rand() % 128;;
 
 srand(time(0));
 while (x <= 2645)
@@ -19,5 +19,6 @@ x += c;
 putchar(c);
 }
 putchar(2772 - x);
+putchar('\n');
 return (0);
 }
