@@ -11,23 +11,25 @@
 
 int main(void)
 {
-        char c[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        char p[58] = {'\0'};
-        int s = 0;
+	int i, j;
+	char c[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char p[58] = {'\0'};
+	int s = 0;
 
-        srand(time(NULL));
-        while (s != 2772)
-        {
-                s = 0;
-                for (int i = 0; i < 57; i++)
-                {
-                        int j = rand() % 62;
-                        p[i] = c[j];
-                        s += c[j];
-                }
-                p[57] = (s == 2772 - c[0]) ? c[0] : c[2772 - s - c[0]];
-        }
-        printf("%s", p);
+	srand(time(NULL));
+	
+	while (s != 2772)
+	{
+		s = 0;
+		for (i = 0; i < 57; i++)
+		{
+			j = rand() % 62;
+			p[i] = c[j];
+			s += c[j];
+		}
+		p[57] = (s == 2772 - c[0]) ? c[0] : c[2772 - s - c[0]];
+	}
+	printf("%s", p);
 
-        return (0);
+	return (0);
 }
