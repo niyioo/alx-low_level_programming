@@ -6,30 +6,29 @@
  *
  * Return: Pointer to the resulting string
  */
-
 char *cap_string(char *s)
 {
-	int i = 0, cap_next = 1, cap_first = 1;
+	int i = 0;
 
-	while (s[i])
+	while (s[++i])
 	{
-		if (cap_next && s[i] >= 'a' && s[i] <= 'z')
-		{
-			s[i] -= 32;
-			cap_next = 0;
-		}
-		if (cap_first && s[i] >= 'a' && s[i] <= 'z')
-		{
-			s[i] -= 32;
-			cap_first = 0;
-		}
-		if (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' ||
-				s[i] == ',' || s[i] == ';' || s[i] == '.' ||
-				s[i] == '!' || s[i] == '?' || s[i] == '"' ||
-				s[i] == '(' || s[i] == ')' || s[i] == '{' || s[i] == '}')
-			cap_next = 1;
-		i++;
-	}
+		while (!(s[i] >= 'a' && s[i] <= 'z'))
+			i++;
 
+		if (s[i - 1] == ' ' ||
+				s[i - 1] == '\t' ||
+				s[i - 1] == '\n' ||
+				s[i - 1] == ',' ||
+				s[i - 1] == ';' ||
+				s[i - 1] == '.' ||
+				s[i - 1] == '!' ||
+				s[i - 1] == '?' ||
+				s[i - 1] == '"' ||
+				s[i - 1] == '(' ||
+				s[i - 1] == ')' ||
+				s[i - 1] == '{' ||
+				s[i - 1] == '}')
+			s[i] -= 32;
+	}
 	return (s);
 }
