@@ -9,21 +9,26 @@
 
 void print_number(int n)
 {
-	int i, j, d = 1;
+	int a, b;
 
-	if (n < 0)
+	if (n != 0)
 	{
-		_putchar('-');
-		n = -n;
-	}
+		if (n < 0)
+		{
+			_putchar('-');
+			n = -n;
+		}
+		a = n / 10;
+		b = n % 10;
+		if (a != 0)
+		{
+			print_number(a);
+			_putchar(b + '0');
+		}
+		else
+			_putchar(b + '0');
 
-	for (i = n; i >= 10; i /= 10)
-		d *= 10;
-
-	for (i = n; d >= 1; d /= 10)
-	{
-		j = i / d;
-		_putchar(j + '0');
-		i -= j * d;
 	}
+	else
+		_putchar('0');
 }
