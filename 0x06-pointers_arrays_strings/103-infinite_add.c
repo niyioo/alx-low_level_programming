@@ -2,55 +2,44 @@
 
 /**
  * infinite_add - Adds two numbers
- * @n1: The first number to add
- * @n2: The second number to add
- * @r: The buffer to store the result
- * @size_r: The buffer size
+ * @n1: First number as a string
+ * @n2: Second number as a string
+ * @r: Buffer to store the result
+ * @size_r: Size of the buffer
  *
- * Return: Pointer to the result
+ * Return: Pointer to the result or 0 if the result can't be stored in r
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i = 0, j = 0, l1 = 0, l2 = 0, sum = 0, carry = 0;
+	int i, j, k, l, sum, carry;
 
-	while (n1[l1] != '\0')
-		l1++;
-	while (n2[l2] != '\0')
-		l2++;
-	if (l1 > size_r || l2 > size_r || size_r == 0)
+	i = j = carry = 0;
+	while (n1[i] != '\0')
+		i++;
+	while (n2[j] != '\0')
+		j++;
+	k = i > j ? i : j;
+	if (k >= size_r)
 		return (0);
-	l1--;
-	l2--;
-	r[size_r - 1] = '\0';
-	for (i = size_r - 2; l1 >= 0 || l2 >= 0; i--)
+	r[k] = '\0';
+	for (i--, j--, l = k - 1; l >= 0; i--, j--, l--)
 	{
 		sum = carry;
-		if (l1 >= 0)
-			sum += n1[l1--] - '0';
-		if (l2 >= 0)
-			sum += n2[l2--] - '0';
-		if (sum > 9)
-		{
-			carry = 1;
-			sum -= 10;
-		}
-		else
-			carry = 0;
-		r[i] = sum + '0';
+		if (i >= 0)
+			sum += n1[i] - '0';
+		if (j >= 0)
+			sum += n2[j] - '0';
+		carry = sum / 10;
+		r[l] = (sum % 10) + '0';
 	}
-	if (carry == 1)
+	if (carry && k + 1 <= size_r)
 	{
-		if (i == 0)
-			return (0);
-		r[--i] = '1';
+		for (l = k; l >= 0; l--)
+			r[l + 1] = r[l];
+		r[0] = carry + '0';
+		return (r);
 	}
-	for (j = 0; r[i] != '\0'; j++, i++)
-	{
-		if (j >= size_r)
-			return (0);
-		r[j] = r[i];
-	}
-	r[j] = '\0';
-
+	else if (carry)
+		return (0);
 	return (r);
 }
