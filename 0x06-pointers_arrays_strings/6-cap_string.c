@@ -1,34 +1,43 @@
 #include "main.h"
 
 /**
- * cap_string - Capitalizes first character of a word
- * @s: Input string
+ * cap_string - capitalizes the first letter of every word in the string
+ * @s: string input
  *
- * Return: Pointer to the resulting string
+ * Return: pointer to s
  */
 char *cap_string(char *s)
 {
-	int i = 0;
+	char *d;
 
-	while (s[++i])
+	d = s;
+	if (*s != '\0')
 	{
-		while (!(s[i] >= 'a' && s[i] <= 'z'))
-			i++;
-
-		if (s[i - 1] == ' ' ||
-				s[i - 1] == '\t' ||
-				s[i - 1] == '\n' ||
-				s[i - 1] == ',' ||
-				s[i - 1] == ';' ||
-				s[i - 1] == '.' ||
-				s[i - 1] == '!' ||
-				s[i - 1] == '?' ||
-				s[i - 1] == '"' ||
-				s[i - 1] == '(' ||
-				s[i - 1] == ')' ||
-				s[i - 1] == '{' ||
-				s[i - 1] == '}')
-			s[i] -= 32;
+		if ((*s >= 'a') && (*s <= 'z'))
+			*s -= 32;
+		while (*s != '\0')
+		{
+			if ((*s == ' ') || (*s == '\n') || (*s == '\t') || (*s == ',') ||
+		(*s == '.') || (*s == '!') || (*s == '?') || (*s == '"') ||
+		(*s == '(') || (*s == ')') || (*s == '{') || (*s == '}'))
+			{
+				s++;
+				if ((*s == ' ') || (*s == '\n') || (*s == '\t'))
+				{
+					s++;
+					if ((*s >= 'a') && (*s <= 'z'))
+					{
+						*s -= 32;
+					}
+				}
+				else
+				{
+					if ((*s >= 'a') && (*s <= 'z'))
+						*s -= 32;
+				}
+			}
+			s++;
+		}
 	}
-	return (s);
+	return (d);
 }
