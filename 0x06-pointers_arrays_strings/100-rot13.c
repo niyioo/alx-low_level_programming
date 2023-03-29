@@ -2,9 +2,9 @@
 
 /**
  * *rot13 - function that encodes a string using rot13
- * @s: Input
+ * @s: String to encode
  *
- * Return: s
+ * Return: pointer to encoded string
  */
 
 char *rot13(char *s)
