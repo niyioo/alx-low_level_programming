@@ -15,24 +15,19 @@ unsigned int _strspn(char *s, char *accept)
 	unsigned int count = 0;
 	int match;
 
-	while (*s != '\0')
+	while (*s)
 	{
-		match = 0;
-		while (*accept != '\0')
+		for (match = 0; accept[match]; match++)
 		{
-			if (*s == *accept)
+			if (accept[match] == *s)
 			{
 				count++;
-				match = 1;
 				break;
 			}
-			accept++;
+			else if ((accept[match + 1]) == '\0')
+				return (count);
 		}
-		if (match == 0)
-			break;
 		s++;
-		accept = accept - count;
 	}
-
 	return (count);
 }
