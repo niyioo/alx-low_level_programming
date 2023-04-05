@@ -12,25 +12,19 @@
 
 int _sqrt_helper(int n, int start, int end)
 {
-	int mid, sqrt;
+	long int mid, sqrt;
 
-	if (n < 0) /* check for error: negative number */
-		return (-1);
-
-	if (n == 0 || n == 1) /* base case: square root of 0 or 1 is itself */
-		return (n);
-
-	if (start > end) /* base case: no square root found */
+	if (end < start)
 		return (-1);
 
 	mid = (start + end) / 2;
 	sqrt = mid * mid;
 
-	if (sqrt == n) /* square root found */
+	if (sqrt == n)
 		return (mid);
-	else if (sqrt < n) /* search upper half of range */
+	else if (sqrt < n)
 		return (_sqrt_helper(n, mid + 1, end));
-	else /* search lower half of range */
+	else
 		return (_sqrt_helper(n, start, mid - 1));
 }
 
@@ -44,5 +38,8 @@ int _sqrt_helper(int n, int start, int end)
 
 int _sqrt_recursion(int n)
 {
-	return (_sqrt_helper(n, 1, n));
+	if (n < 0)
+		return (-1);
+	else
+		return (_sqrt_helper(n, 0, n));
 }
