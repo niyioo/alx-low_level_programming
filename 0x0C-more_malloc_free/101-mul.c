@@ -1,58 +1,122 @@
-#include <stdio.h>
+#include "main.h"
 #include <stdlib.h>
 
-#define EXPECTED_NUM_ARGS 3
+/**
+ * is_digit - Checks if a character is a digit
+ *
+ * @c: The character to check
+ *
+ * Return: 1 if @c is a digit, 0 otherwise
+ */
+int is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
+}
 
 /**
- * main - Entry point of the program
- * @argc: The number of arguments passed to the program
- * @argv: An array of strings containing the
- * arguments passed to the program
- * Description: This program takes two integer
- * arguments and computes their product.
- * Return: Always 0 (Success)
+ * str_len - Computes the length of a string
+ *
+ * @str: The string to compute the length of
+ *
+ * Return: The length of @str
+ */
+int str_len(char *str)
+{
+	int len = 0;
+
+	while (str[len])
+		len++;
+
+	return (len);
+}
+
+/**
+ * str_to_int - Converts a string to an integer
+ *
+ * @str: The string to convert
+ *
+ * Return: The integer representation of @str
+ *
+ * If @str is not a valid integer prints an error message
+ * and exits with a status of 98.
  */
 
-int main(int argc, const char *argv[])
+int str_to_int(char *str)
 {
-	const char *num1_input, *num2_input;
-	int num1, num2, product, i;
+	int num = 0;
+	int i;
 
-	if (argc != EXPECTED_NUM_ARGS)
+	for (i = 0; str[i]; i++)
 	{
-		fprintf(stderr, "Usage: %s num1 num2\n", argv[0]);
-		fprintf(stderr, "Error: Expected %d arguments, but got %d\n",
-				EXPECTED_NUM_ARGS - 1, argc - 1);
-		exit(1);
-	}
-
-	num1_input = argv[1];
-	num2_input = argv[2];
-
-	for (i = 0; num1_input[i] != '\0'; i++)
-	{
-		if (num1_input[i] < '0' || num1_input[i] > '9')
+		if (!is_digit(str[i]))
 		{
-			fprintf(stderr, "Error: Invalid character in num1: %c\n", num1_input[i]);
-			exit(1);
+			_putchar('E');
+			_putchar('r');
+			_putchar('r');
+			_putchar('o');
+			_putchar('r');
+			_putchar('\n');
+			exit(98);
 		}
+
+		num = num * 10 + (str[i] - '0');
 	}
 
-	for (i = 0; num2_input[i] != '\0'; i++)
+	return (num);
+}
+
+/**
+ * print_num - Prints an integer to stdout
+ *
+ * @num: The integer to print
+ *
+ * This function recursively prints each digit of @num.
+ */
+void print_num(int num)
+{
+	if (num / 10)
+		print_num(num / 10);
+
+	_putchar(num % 10 + '0');
+}
+
+/**
+ * main - Entry point for the program
+ *
+ * @argc: The number of command-line arguments
+ * @argv: An array of pointers to the command-line arguments
+ *
+ * This program multiplies two positive integers passed as
+ * command-line arguments and prints the result to stdout
+ * If the number of arguments is incorrect or either argument is
+ * not a positive integer, prints an error
+ * message and exits with a status of 98.
+ *
+ * Return: 0 on success, 98 on failure
+ */
+
+int main(int argc, char **argv)
+{
+	int num1, num2, result;
+
+	if (argc != 3)
 	{
-		if (num2_input[i] < '0' || num2_input[i] > '9')
-		{
-			fprintf(stderr, "Error: Invalid character in num2: %c\n", num2_input[i]);
-			exit(1);
-		}
+		_putchar('E');
+		_putchar('r');
+		_putchar('r');
+		_putchar('o');
+		_putchar('r');
+		_putchar('\n');
+		exit(98);
 	}
 
-	num1 = atoi(num1_input);
-	num2 = atoi(num2_input);
+	num1 = str_to_int(argv[1]);
+	num2 = str_to_int(argv[2]);
 
-	product = num1 * num2;
+	result = num1 * num2;
 
-	printf("%d\n", product);
+	print_num(result);
+	_putchar('\n');
 
 	return (0);
 }
