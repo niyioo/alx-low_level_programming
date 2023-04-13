@@ -8,28 +8,9 @@
  *
  * Return: 1 if @c is a digit, 0 otherwise
  */
-
 int is_digit(char c)
 {
 	return (c >= '0' && c <= '9');
-}
-
-/**
- * str_len - Computes the length of a string
- *
- * @str: The string to compute the length of
- *
- * Return: The length of @str
- */
-
-int str_len(char *str)
-{
-	int len = 0;
-
-	while (str[len])
-		len++;
-
-	return (len);
 }
 
 /**
@@ -42,7 +23,6 @@ int str_len(char *str)
  * If @str is not a valid integer, prints an error message and exits with a
  * status of 98.
  */
-
 int str_to_int(char *str)
 {
 	int num = 0;
@@ -74,7 +54,6 @@ int str_to_int(char *str)
  *
  * This function recursively prints each digit of @num.
  */
-
 void print_num(int num)
 {
 	if (num / 10)
@@ -96,7 +75,6 @@ void print_num(int num)
  *
  * Return: 0 on success, 98 on failure
  */
-
 int main(int argc, char **argv)
 {
 	int num1, num2, result;
@@ -112,8 +90,19 @@ int main(int argc, char **argv)
 		exit(98);
 	}
 
-	num1 = str_to_int(argv[1]);
-	num2 = str_to_int(argv[2]);
+	num1 = atoi(argv[1]);
+	num2 = atoi(argv[2]);
+
+	if (num1 <= 0 || num2 <= 0)
+	{
+		_putchar('E');
+		_putchar('r');
+		_putchar('r');
+		_putchar('o');
+		_putchar('r');
+		_putchar('\n');
+		exit(98);
+	}
 
 	result = num1 * num2;
 
