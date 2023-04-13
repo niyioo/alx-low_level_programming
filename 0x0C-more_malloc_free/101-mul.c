@@ -8,6 +8,7 @@
  *
  * Return: 1 if @c is a digit, 0 otherwise
  */
+
 int is_digit(char c)
 {
 	return (c >= '0' && c <= '9');
@@ -20,6 +21,7 @@ int is_digit(char c)
  *
  * Return: The length of @str
  */
+
 int str_len(char *str)
 {
 	int len = 0;
@@ -40,6 +42,7 @@ int str_len(char *str)
  * If @str is not a valid integer, prints an error message and exits with a
  * status of 98.
  */
+
 int str_to_int(char *str)
 {
 	int num = 0;
@@ -71,6 +74,7 @@ int str_to_int(char *str)
  *
  * This function recursively prints each digit of @num.
  */
+
 void print_num(int num)
 {
 	if (num / 10)
@@ -92,6 +96,7 @@ void print_num(int num)
  *
  * Return: 0 on success, 98 on failure
  */
+
 int main(int argc, char **argv)
 {
 	int num1, num2, result;

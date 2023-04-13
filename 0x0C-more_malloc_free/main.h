@@ -9,7 +9,6 @@ int *array_range(int min, int max);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int _isdigit(int c);
 int _strlen(char *s);
-char *mul(char *num1, char *num2);
 int main(int argc, char **argv);
 int str_to_int(char *str);
 void print_num(int num);
