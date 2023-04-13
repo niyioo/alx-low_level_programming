@@ -2,18 +2,6 @@
 #include <stdlib.h>
 
 /**
- * _putchar - Writes a single character to stdout
- *
- * @c: The character to write
- *
- * Return: On success, 1. On error, -1.
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-/**
  * is_digit - Checks if a character is a digit
  *
  * @c: The character to check
