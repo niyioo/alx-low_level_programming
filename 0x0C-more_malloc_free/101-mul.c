@@ -1,14 +1,14 @@
 #include "main.h"
 #include <stdlib.h>
 
+int _putchar(char c);
+
 /**
  * is_digit - Checks if a character is a digit
- *
  * @c: The character to check
  *
  * Return: 1 if @c is a digit, 0 otherwise
  */
-
 int is_digit(char c)
 {
 	return (c >= '0' && c <= '9');
@@ -16,12 +16,10 @@ int is_digit(char c)
 
 /**
  * str_len - Computes the length of a string
- *
  * @str: The string to compute the length of
  *
  * Return: The length of @str
  */
-
 int str_len(char *str)
 {
 	int len = 0;
@@ -34,7 +32,6 @@ int str_len(char *str)
 
 /**
  * str_to_int - Converts a string to an integer
- *
  * @str: The string to convert
  *
  * Return: The integer representation of @str
@@ -42,7 +39,6 @@ int str_len(char *str)
  * If @str is not a valid integer prints an error
  * message and exits with a status of 98.
  */
-
 int str_to_int(char *str)
 {
 	int num = 0;
@@ -69,12 +65,10 @@ int str_to_int(char *str)
 
 /**
  * print_num - Prints an integer to stdout
- *
  * @num: The integer to print
  *
  * This function recursively prints each digit of @num.
  */
-
 void print_num(int num)
 {
 	if (num / 10)
@@ -85,7 +79,6 @@ void print_num(int num)
 
 /**
  * main - Entry point for the program
- *
  * @argc: The number of command-line arguments
  * @argv: An array of pointers to the command-line arguments
  *
@@ -96,7 +89,6 @@ void print_num(int num)
  *
  * Return: 0 on success, 98 on failure
  */
-
 int main(int argc, char **argv)
 {
 	int num1, num2, result;
