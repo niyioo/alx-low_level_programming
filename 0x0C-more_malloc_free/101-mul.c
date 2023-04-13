@@ -3,91 +3,122 @@
 #include <stdlib.h>
 
 /**
- * _puts - prints a string, followed by a new line,
- * @str: pointer to the string to print
- * Return: void
+ * _isdigit - checks if a character is a digit
+ * @c: the character to check
+ *
+ * Return: 1 if c is a digit, 0 otherwise
  */
 
-void _puts(char *str)
+int _isdigit(int c)
 {
-	int i = 0;
-
-	while (str[i])
-	{
-		_putchar(str[i]);
-		i++;
-	}
-
+	return (c >= '0' && c <= '9');
 }
 
 /**
- * _atoi - convert a string to an integer.
- * @s: char type string
- * Return: integer converted
+ * _strlen - returns the length of a string
+ * @s: the string to get the length of
+ *
+ * Return: the length of s
  */
 
-int _atoi(const char *s)
+int _strlen(char *s)
 {
-	int sign = 1;
-	unsigned long int resp = 0, firstNum, i;
+	int i;
 
-	for (firstNum = 0; !(s[firstNum] >= 48 && s[firstNum] <= 57); firstNum++)
+	for (i = 0; s[i]; i++);
+
+	return (i);
+}
+
+/**
+ * mul - multiplies two positive numbers
+ * @num1: the first number
+ * @num2: the second number
+ *
+ * Return: the result of num1 times num2
+ */
+
+char *mul(char *num1, char *num2)
+{
+	char *result;
+	int len1, len2, i, j, k, carry, n1, n2, sum;
+
+	len1 = _strlen(num1);
+	len2 = _strlen(num2);
+
+	result = malloc(sizeof(char) * (len1 + len2 + 1));
+	if (result == NULL)
+		return (NULL);
+
+	for (i = 0; i < len1 + len2; i++)
+		result[i] = '0';
+	result[i] = '\0';
+
+	for (i = len1 - 1; i >= 0; i--)
 	{
-		if (s[firstNum] == '-')
+		carry = 0;
+		n1 = num1[i] - '0';
+
+		for (j = len2 - 1, k = i + j + 1; j >= 0; j--, k--)
 		{
-			sign *= -1;
+			n2 = num2[j] - '0';
+			sum = n1 * n2 + carry + (result[k] - '0');
+			carry = sum / 10;
+			result[k] = (sum % 10) + '0';
 		}
+
+		result[k] += carry;
 	}
 
-	for (i = firstNum; s[i] >= 48 && s[i] <= 57; i++)
-	{
-		resp *= 10;
-		resp += (s[i] - 48);
-	}
+	while (*result == '0' && *(result + 1))
+		result++;
 
-	return (sign * resp);
+	return (result);
 }
 
 /**
- * print_int - prints an integer.
- * @n: int
- * Return: 0
+ * main - multiplies two positive numbers
+ * @argc: the number of arguments
+ * @argv: the arguments
+ *
+ * Return: 0 on success, 98 on error
  */
 
-void print_int(unsigned long int n)
+int main(int argc, char **argv)
 {
-
-	unsigned  long int divisor = 1, i, resp;
-
-	for (i = 0; n / divisor > 9; i++, divisor *= 10)
-		;
-
-	for (; divisor >= 1; n %= divisor, divisor /= 10)
-	{
-		resp = n / divisor;
-		_putchar('0' + resp);
-	}
-
-}
-
-/**
- * main - print the result of the multiplication, followed by a new line
- * @argc: int
- * @argv: list
- * Return: 0
- */
-
-int main(int argc, char const *argv[])
-{
-	(void)argc;
+	char *num1, *num2, *result;
+	int i, j;
 
 	if (argc != 3)
 	{
-		_puts("Error ");
-		exit(98);
+		printf("Error\n");
+		return (98);
 	}
-	print_int(_atoi(argv[1]) * _atoi(argv[2]));
-	_putchar('\n');
+
+	num1 = argv[1];
+	num2 = argv[2];
+
+	for (i = 0; num1[i]; i++)
+	{
+		if (!_isdigit(num1[i]))
+		{
+			printf("Error\n");
+			return (98);
+		}
+	}
+
+	for (j = 0; num2[j]; j++)
+	{
+		if (!_isdigit(num2[j]))
+		{
+			printf("Error\n");
+			return (98);
+		}
+	}
+
+	result = mul(num1, num2);
+	printf("%s\n", result);
+	free(result);
 
 	return (0);
 }
