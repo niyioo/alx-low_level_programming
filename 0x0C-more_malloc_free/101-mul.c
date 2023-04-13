@@ -1,134 +1,92 @@
 #include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * _strlen - Compute the length of a string
- * @s: The string to compute the length of
- *
- * Return: The length of the string
- */
-int _strlen(char *s)
-{
-	int len = 0;
-
-	while (*s)
-	{
-		len++;
-		s++;
-	}
-	return (len);
-}
-
-/**
- * is_digit - Check if a character is a digit
- * @c: The character to check
- *
- * Return: 1 if the character is a digit, 0 otherwise
+ * _puts - prints a string, followed by a new line,
+ * @str: pointer to the string to print
+ * Return: void
  */
 
-int is_digit(char c)
+void _puts(char *str)
 {
-	return (c >= '0' && c <= '9');
-}
-
-/**
- * str_to_int - Convert a string to an integer
- * @s: The string to convert
- *
- * Return: The integer value of the string
- */
-
-int str_to_int(char *s)
-{
-	int result = 0;
-
-	while (*s)
-	{
-		if (!is_digit(*s))
-		{
-			exit(98);
-		}
-		result = result * 10 + (*s - '0');
-		s++;
-	}
-	return (result);
-}
-
-/**
- * mul - Multiply two positive integers
- * @num1: The first number to multiply
- * @num2: The second number to multiply
- *
- * Return: The result of the multiplication
- */
-
-int mul(int num1, int num2)
-{
-	return (num1 * num2);
-}
-
-/**
- * print_number - Print an integer
- * @n: The integer to print
- */
-
-void print_number(int n)
-{
-	char buffer[16];
 	int i = 0;
 
-	if (n == 0)
+	while (str[i])
 	{
-		_putchar('0');
-		return;
-	}
-	if (n < 0)
-	{
-		_putchar('-');
-		n = -n;
-	}
-	while (n > 0)
-	{
-		buffer[i] = (n % 10) + '0';
+		_putchar(str[i]);
 		i++;
-		n /= 10;
 	}
-	i--;
-	while (i >= 0)
-	{
-		_putchar(buffer[i]);
-		i--;
-	}
+
 }
 
 /**
- * main - Entry point of the program
- * @argc: The number of command-line arguments
- * @argv: An array of pointers to the command-line arguments
- *
- * Return: 0 if the program completes successfully, 98 if an error occurs
+ * _atoi - convert a string to an integer.
+ * @s: char type string
+ * Return: integer converted
  */
-int main(int argc, char **argv)
+
+int _atoi(const char *s)
 {
-	int num1, num2, result;
+	int sign = 1;
+	unsigned long int resp = 0, firstNum, i;
+
+	for (firstNum = 0; !(s[firstNum] >= 48 && s[firstNum] <= 57); firstNum++)
+	{
+		if (s[firstNum] == '-')
+		{
+			sign *= -1;
+		}
+	}
+
+	for (i = firstNum; s[i] >= 48 && s[i] <= 57; i++)
+	{
+		resp *= 10;
+		resp += (s[i] - 48);
+	}
+
+	return (sign * resp);
+}
+
+/**
+ * print_int - prints an integer.
+ * @n: int
+ * Return: 0
+ */
+
+void print_int(unsigned long int n)
+{
+
+	unsigned  long int divisor = 1, i, resp;
+
+	for (i = 0; n / divisor > 9; i++, divisor *= 10)
+		;
+
+	for (; divisor >= 1; n %= divisor, divisor /= 10)
+	{
+		resp = n / divisor;
+		_putchar('0' + resp);
+	}
+
+}
+
+/**
+ * main - print the result of the multiplication, followed by a new line
+ * @argc: int
+ * @argv: list
+ * Return: 0
+ */
+
+int main(int argc, char const *argv[])
+{
+	(void)argc;
 
 	if (argc != 3)
 	{
-		_putchar('E');
-		_putchar('r');
-		_putchar('r');
-		_putchar('o');
-		_putchar('r');
-		_putchar('\n');
-		return (98);
+		_puts("Error ");
+		exit(98);
 	}
-
-	num1 = str_to_int(argv[1]);
-	num2 = str_to_int(argv[2]);
-
-	result = mul(num1, num2);
-
-	print_number(result);
+	print_int(_atoi(argv[1]) * _atoi(argv[2]));
 	_putchar('\n');
 
 	return (0);
