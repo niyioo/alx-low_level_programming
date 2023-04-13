@@ -14,15 +14,33 @@ int is_digit(char c)
 }
 
 /**
+ * str_len - Computes the length of a string
+ *
+ * @str: The string to compute the length of
+ *
+ * Return: The length of @str
+ */
+int str_len(char *str)
+{
+	int len = 0;
+
+	while (str[len])
+		len++;
+
+	return (len);
+}
+
+/**
  * str_to_int - Converts a string to an integer
  *
  * @str: The string to convert
  *
  * Return: The integer representation of @str
  *
- * If @str is not a valid integer, prints an error message and exits with a
- * status of 98.
+ * If @str is not a valid integer prints an error message
+ * and exits with a status of 98.
  */
+
 int str_to_int(char *str)
 {
 	int num = 0;
@@ -68,13 +86,15 @@ void print_num(int num)
  * @argc: The number of command-line arguments
  * @argv: An array of pointers to the command-line arguments
  *
- * This program multiplies two positive integers passed as command-line
- * arguments and prints the result to stdout. If the number of arguments is
- * incorrect or either argument is not a positive integer, prints an error
+ * This program multiplies two positive integers passed as
+ * command-line arguments and prints the result to stdout
+ * If the number of arguments is incorrect or either argument is
+ * not a positive integer, prints an error
  * message and exits with a status of 98.
  *
  * Return: 0 on success, 98 on failure
  */
+
 int main(int argc, char **argv)
 {
 	int num1, num2, result;
@@ -90,19 +110,8 @@ int main(int argc, char **argv)
 		exit(98);
 	}
 
-	num1 = atoi(argv[1]);
-	num2 = atoi(argv[2]);
-
-	if (num1 <= 0 || num2 <= 0)
-	{
-		_putchar('E');
-		_putchar('r');
-		_putchar('r');
-		_putchar('o');
-		_putchar('r');
-		_putchar('\n');
-		exit(98);
-	}
+	num1 = str_to_int(argv[1]);
+	num2 = str_to_int(argv[2]);
 
 	result = num1 * num2;
 
