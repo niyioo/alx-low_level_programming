@@ -1,129 +1,135 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 /**
- * print_error - Prints "Error" followed by a newline to standard error.
+ * _strlen - Compute the length of a string
+ * @s: The string to compute the length of
+ *
+ * Return: The length of the string
  */
-void print_error(void)
+int _strlen(char *s)
 {
-	char *msg = "Error\n";
-	int i = 0;
+	int len = 0;
 
-	while (msg[i] != '\0')
+	while (*s)
 	{
-		putchar(msg[i]);
-		i++;
+		len++;
+		s++;
 	}
+	return (len);
 }
 
 /**
- * is_valid_num - Determines if a string represents a valid number.
- * @num: The string to check.
+ * is_digit - Check if a character is a digit
+ * @c: The character to check
  *
- * Return: If the string represents a valid number - 1.
- *         Otherwise - 0.
+ * Return: 1 if the character is a digit, 0 otherwise
  */
-int is_valid_num(char *num)
+
+int is_digit(char c)
 {
-	int i = 0;
-
-	while (num[i] != '\0')
-	{
-		if (num[i] < '0' || num[i] > '9')
-			return (0);
-		i++;
-	}
-
-	return (1);
+	return (c >= '0' && c <= '9');
 }
 
 /**
- * multiply - Multiplies two numbers represented as strings.
- * @num1: The first number.
- * @num2: The second number.
+ * str_to_int - Convert a string to an integer
+ * @s: The string to convert
  *
- * Return: A string representing the product of the two numbers.
+ * Return: The integer value of the string
  */
-char *multiply(char *num1, char *num2)
+
+int str_to_int(char *s)
 {
-	int len1 = 0, len2 = 0, i = 0, j = 0, carry = 0, prod = 0;
-	char *result;
+	int result = 0;
 
-	while (num1[len1] != '\0')
-		len1++;
-	while (num2[len2] != '\0')
-		len2++;
-
-	result = malloc((len1 + len2) * sizeof(char));
-	if (result == NULL)
-		return (NULL);
-
-	for (i = len1 - 1; i >= 0; i--)
+	while (*s)
 	{
-		carry = 0;
-		for (j = len2 - 1; j >= 0; j--)
+		if (!is_digit(*s))
 		{
-			prod = (num1[i] - '0') * (num2[j] - '0') + carry + result[i + j + 1] - '0';
-			carry = prod / 10;
-			result[i + j + 1] = (prod % 10) + '0';
+			exit(98);
 		}
-		result[i] += carry;
+		result = result * 10 + (*s - '0');
+		s++;
 	}
-
-	for (i = 0; result[i] == '0' && result[i + 1] != '\0'; i++)
-		;
-	if (i > 0)
-		for (j = 0; j <= len1 + len2 - i; j++)
-			result[j] = result[j + i];
-
 	return (result);
 }
 
 /**
- * print_result - Prints a string to standard output.
- * @str: The string to print.
+ * mul - Multiply two positive integers
+ * @num1: The first number to multiply
+ * @num2: The second number to multiply
+ *
+ * Return: The result of the multiplication
  */
-void print_result(char *str)
-{
-	int i = 0;
 
-	while (str[i] != '\0')
-	{
-		putchar(str[i]);
-		i++;
-	}
-	putchar('\n');
+int mul(int num1, int num2)
+{
+	return (num1 * num2);
 }
 
 /**
- * main - Multiplies two numbers.
- * @argc: The number of arguments passed to the program.
- * @argv: An array of pointers to the arguments.
+ * print_number - Print an integer
+ * @n: The integer to print
+ */
+
+void print_number(int n)
+{
+	char buffer[16];
+	int i = 0;
+
+	if (n == 0)
+	{
+		_putchar('0');
+		return;
+	}
+	if (n < 0)
+	{
+		_putchar('-');
+		n = -n;
+	}
+	while (n > 0)
+	{
+		buffer[i] = (n % 10) + '0';
+		i++;
+		n /= 10;
+	}
+	i--;
+	while (i >= 0)
+	{
+		_putchar(buffer[i]);
+		i--;
+	}
+}
+
+/**
+ * main - Entry point of the program
+ * @argc: The number of command-line arguments
+ * @argv: An array of pointers to the command-line arguments
  *
- * Return: 0 if successful, 1 otherwise.
+ * Return: 0 if the program completes successfully, 98 if an error occurs
  */
 int main(int argc, char **argv)
 {
-	char *num1, *num2, *result;
+	int num1, num2, result;
 
-	if (argc != 3 || !is_valid_num(argv[1]) || !is_valid_num(argv[2]))
+	if (argc != 3)
 	{
-		print_error();
-		return (1);
+		_putchar('E');
+		_putchar('r');
+		_putchar('r');
+		_putchar('o');
+		_putchar('r');
+		_putchar('\n');
+		return (98);
 	}
 
-	num1 = argv[1];
-	num2 = argv[2];
-	result = multiply(num1, num2);
-	if (result == NULL)
-	{
-		print_error();
-		return (1);
-	}
+	num1 = str_to_int(argv[1]);
+	num2 = str_to_int(argv[2]);
 
-	print_result(result);
-	free(result);
+	result = mul(num1, num2);
+
+	print_number(result);
+	_putchar('\n');
 
 	return (0);
 }
