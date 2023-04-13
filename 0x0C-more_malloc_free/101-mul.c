@@ -1,116 +1,129 @@
 #include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-int _putchar(char c);
-
 /**
- * is_digit - Checks if a character is a digit
- * @c: The character to check
- *
- * Return: 1 if @c is a digit, 0 otherwise
+ * print_error - Prints "Error" followed by a newline to standard error.
  */
-int is_digit(char c)
+void print_error(void)
 {
-	return (c >= '0' && c <= '9');
-}
+	char *msg = "Error\n";
+	int i = 0;
 
-/**
- * str_len - Computes the length of a string
- * @str: The string to compute the length of
- *
- * Return: The length of @str
- */
-int str_len(char *str)
-{
-	int len = 0;
-
-	while (str[len])
-		len++;
-
-	return (len);
-}
-
-/**
- * str_to_int - Converts a string to an integer
- * @str: The string to convert
- *
- * Return: The integer representation of @str
- *
- * If @str is not a valid integer prints an error
- * message and exits with a status of 98.
- */
-int str_to_int(char *str)
-{
-	int num = 0;
-	int i;
-
-	for (i = 0; str[i]; i++)
+	while (msg[i] != '\0')
 	{
-		if (!is_digit(str[i]))
-		{
-			_putchar('E');
-			_putchar('r');
-			_putchar('r');
-			_putchar('o');
-			_putchar('r');
-			_putchar('\n');
-			exit(98);
-		}
+		putchar(msg[i]);
+		i++;
+	}
+}
 
-		num = num * 10 + (str[i] - '0');
+/**
+ * is_valid_num - Determines if a string represents a valid number.
+ * @num: The string to check.
+ *
+ * Return: If the string represents a valid number - 1.
+ *         Otherwise - 0.
+ */
+int is_valid_num(char *num)
+{
+	int i = 0;
+
+	while (num[i] != '\0')
+	{
+		if (num[i] < '0' || num[i] > '9')
+			return (0);
+		i++;
 	}
 
-	return (num);
+	return (1);
 }
 
 /**
- * print_num - Prints an integer to stdout
- * @num: The integer to print
+ * multiply - Multiplies two numbers represented as strings.
+ * @num1: The first number.
+ * @num2: The second number.
  *
- * This function recursively prints each digit of @num.
+ * Return: A string representing the product of the two numbers.
  */
-void print_num(int num)
+char *multiply(char *num1, char *num2)
 {
-	if (num / 10)
-		print_num(num / 10);
+	int len1 = 0, len2 = 0, i = 0, j = 0, carry = 0, prod = 0;
+	char *result;
 
-	_putchar(num % 10 + '0');
+	while (num1[len1] != '\0')
+		len1++;
+	while (num2[len2] != '\0')
+		len2++;
+
+	result = malloc((len1 + len2) * sizeof(char));
+	if (result == NULL)
+		return (NULL);
+
+	for (i = len1 - 1; i >= 0; i--)
+	{
+		carry = 0;
+		for (j = len2 - 1; j >= 0; j--)
+		{
+			prod = (num1[i] - '0') * (num2[j] - '0') + carry + result[i + j + 1] - '0';
+			carry = prod / 10;
+			result[i + j + 1] = (prod % 10) + '0';
+		}
+		result[i] += carry;
+	}
+
+	for (i = 0; result[i] == '0' && result[i + 1] != '\0'; i++)
+		;
+	if (i > 0)
+		for (j = 0; j <= len1 + len2 - i; j++)
+			result[j] = result[j + i];
+
+	return (result);
 }
 
 /**
- * main - Entry point for the program
- * @argc: The number of command-line arguments
- * @argv: An array of pointers to the command-line arguments
+ * print_result - Prints a string to standard output.
+ * @str: The string to print.
+ */
+void print_result(char *str)
+{
+	int i = 0;
+
+	while (str[i] != '\0')
+	{
+		putchar(str[i]);
+		i++;
+	}
+	putchar('\n');
+}
+
+/**
+ * main - Multiplies two numbers.
+ * @argc: The number of arguments passed to the program.
+ * @argv: An array of pointers to the arguments.
  *
- * This program multiplies two positive integers passed as command-line
- * arguments and prints the result to stdout. If the number of arguments is
- * incorrect or either argument is not a positive integer, prints an error
- * message and exits with a status of 98.
- *
- * Return: 0 on success, 98 on failure
+ * Return: 0 if successful, 1 otherwise.
  */
 int main(int argc, char **argv)
 {
-	int num1, num2, result;
+	char *num1, *num2, *result;
 
-	if (argc != 3)
+	if (argc != 3 || !is_valid_num(argv[1]) || !is_valid_num(argv[2]))
 	{
-		_putchar('E');
-		_putchar('r');
-		_putchar('r');
-		_putchar('o');
-		_putchar('r');
-		_putchar('\n');
-		exit(98);
+		print_error();
+		return (1);
 	}
 
-	num1 = str_to_int(argv[1]);
-	num2 = str_to_int(argv[2]);
+	num1 = argv[1];
+	num2 = argv[2];
+	result = multiply(num1, num2);
+	if (result == NULL)
+	{
+		print_error();
+		return (1);
+	}
 
-	result = num1 * num2;
-
-	print_num(result);
-	_putchar('\n');
+	print_result(result);
+	free(result);
 
 	return (0);
 }
