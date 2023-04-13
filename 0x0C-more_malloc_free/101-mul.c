@@ -1,71 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+
+#define EXPECTED_NUM_ARGS 3
 
 /**
- * validate_input - Validates that the input is composed of digits
- * @input: The input string to be validated
- *
- * Return: 0 if the input is composed of digits, 1 otherwise
+ * main - Entry point of the program
+ * @argc: The number of arguments passed to the program
+ * @argv: An array of strings containing the
+ * arguments passed to the program
+ * Description: This program takes two integer
+ * arguments and computes their product.
+ * Return: Always 0 (Success)
  */
-int validate_input(char *input)
+
+int main(int argc, const char *argv[])
 {
-	int i;
+	const char *num1_input, *num2_input;
+	int num1, num2, product, i;
 
-	for (i = 0; input[i] != '\0'; i++)
+	if (argc != EXPECTED_NUM_ARGS)
 	{
-		if (!isdigit(input[i]))
-			return (1);
+		fprintf(stderr, "Usage: %s num1 num2\n", argv[0]);
+		fprintf(stderr, "Error: Expected %d arguments, but got %d\n",
+				EXPECTED_NUM_ARGS - 1, argc - 1);
+		exit(1);
 	}
 
-	return (0);
-}
+	num1_input = argv[1];
+	num2_input = argv[2];
 
-/**
- * main - Multiplies two positive numbers
- * @argc: The number of arguments passed
- * @argv: An array containing the arguments passed
- *
- * Return: 0 if successful, 98 if the number of arguments is not 3,
- * 1 if either of the two numbers contains non-digit characters
- */
-int main(int argc, char *argv[])
-{
-	char *num1_str, *num2_str;
-	long int num1, num2, result;
-
-	/* Check for the correct number of arguments */
-	if (argc != 3)
+	for (i = 0; num1_input[i] != '\0'; i++)
 	{
-		printf("Error\n");
-		return (98);
+		if (num1_input[i] < '0' || num1_input[i] > '9')
+		{
+			fprintf(stderr, "Error: Invalid character in num1: %c\n", num1_input[i]);
+			exit(1);
+		}
 	}
 
-	/* Validate the first argument */
-	num1_str = argv[1];
-	if (validate_input(num1_str))
+	for (i = 0; num2_input[i] != '\0'; i++)
 	{
-		printf("Error\n");
-		return (1);
+		if (num2_input[i] < '0' || num2_input[i] > '9')
+		{
+			fprintf(stderr, "Error: Invalid character in num2: %c\n", num2_input[i]);
+			exit(1);
+		}
 	}
 
-	/* Validate the second argument */
-	num2_str = argv[2];
-	if (validate_input(num2_str))
-	{
-		printf("Error\n");
-		return (1);
-	}
+	num1 = atoi(num1_input);
+	num2 = atoi(num2_input);
 
-	/* Convert the arguments to integers */
-	num1 = strtol(num1_str, NULL, 10);
-	num2 = strtol(num2_str, NULL, 10);
+	product = num1 * num2;
 
-	/* Multiply the two numbers */
-	result = num1 * num2;
-
-	/* Print the result */
-	printf("%ld\n", result);
+	printf("%d\n", product);
 
 	return (0);
 }
