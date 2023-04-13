@@ -14,6 +14,26 @@ int is_digit(char c)
 }
 
 /**
+ * is_positive_int - Checks if a string is a positive integer
+ *
+ * @str: The string to check
+ *
+ * Return: 1 if @str is a positive integer, 0 otherwise
+ */
+int is_positive_int(char *str)
+{
+	int i;
+
+	for (i = 0; str[i]; i++)
+	{
+		if (!is_digit(str[i]))
+			return (0);
+	}
+
+	return (1);
+}
+
+/**
  * str_len - Computes the length of a string
  *
  * @str: The string to compute the length of
@@ -94,12 +114,11 @@ void print_num(int num)
  *
  * Return: 0 on success, 98 on failure
  */
-
 int main(int argc, char **argv)
 {
 	int num1, num2, result;
 
-	if (argc != 3)
+	if (argc != 3 || !is_positive_int(argv[1]) || !is_positive_int(argv[2]))
 	{
 		_putchar('E');
 		_putchar('r');
