@@ -3,7 +3,6 @@
 
 /**
  * struct dog - Defines a dog's attributes
- *
  * @name: The dog's name
  * @age: The dog's age
  * @owner: The dog's owner's name
@@ -12,14 +11,14 @@
  * including its name, age, and owner's name.
  */
 
-struct dog
+typedef struct dog
 {
-	char *name;
-	float age;
-	char *owner;
-};
+    char *name;
+    float age;
+    char *owner;
+} dog_t;
 
-void init_dog(struct dog *d, char *name, float age, char *owner);
-void print_dog(struct dog *d);
+void init_dog(dog_t *d, char *name, float age, char *owner);
+void print_dog(dog_t *d);
 
-#endif
+#endif /* DOG_H */
