@@ -3,6 +3,14 @@
 
 #include <stdio.h>
 
+/**
+ * struct list_s - singly linked list
+ * @str: string
+ * @len: string length
+ * @next: next node
+ *
+ */
+
 typedef struct list_s
 {
 	char *str;
