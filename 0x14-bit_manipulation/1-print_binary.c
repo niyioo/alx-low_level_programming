@@ -10,31 +10,26 @@
 void print_binary(unsigned long int n)
 {
 	unsigned long int mask = 1;
-	unsigned int bit_count = 0;
+	int bits_printed = 0;
 
-	while (mask <= n)
-	{
+	while ((mask << 1) <= n)
 		mask <<= 1;
-		bit_count++;
-	}
-
-	if (bit_count > 0)
-	{
-		mask >>= 1;
-		bit_count--;
-	}
 
 	while (mask > 0)
 	{
 		if (n & mask)
+		{
 			_putchar('1');
-		else
+			bits_printed++;
+		}
+		else if (bits_printed > 0 || mask == 1)
+		{
 			_putchar('0');
-
+			bits_printed++;
+		}
 		mask >>= 1;
-		bit_count--;
 	}
 
-	if (bit_count == 64)
+	if (bits_printed == 0)
 		_putchar('0');
 }
