@@ -26,7 +26,6 @@ int main(int argc, char **argv)
 		dprintf(STDERR_FILENO, "Usage: %s elf_filename\n", argv[0]);
 		exit(98);
 	}
-
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
@@ -34,7 +33,6 @@ int main(int argc, char **argv)
 				argv[1], strerror(errno));
 		exit(98);
 	}
-
 	nread = read(fd, &header, sizeof(header));
 	if (nread == -1)
 	{
@@ -49,7 +47,6 @@ int main(int argc, char **argv)
 		close(fd);
 		exit(98);
 	}
-
 	print_magic(header.e_ident);
 	print_class(header.e_ident);
 	print_data(header.e_ident);
@@ -58,7 +55,6 @@ int main(int argc, char **argv)
 	print_abiversion(header.e_ident);
 	print_type(header.e_type);
 	print_entry(header.e_entry);
-
 	close(fd);
 	return (EXIT_SUCCESS);
 }
@@ -71,10 +67,16 @@ void print_magic(unsigned char *e_ident)
 {
 	int i;
 
-	printf("Magic:   ");
+	printf("ELF Header:\n");
+	printf("  Magic:   ");
 	for (i = 0; i < EI_NIDENT; i++)
+	{
 		printf("%02x ", e_ident[i]);
-	putchar('\n');
+		if (i == EI_NIDENT - 1)
+		printf("\n");
+		else
+			printf(" ");
+	}
 }
 
 /**
@@ -83,7 +85,7 @@ void print_magic(unsigned char *e_ident)
  */
 void print_class(unsigned char *e_ident)
 {
-	printf("Class:   ");
+	printf("  Class:                             ");
 	switch (e_ident[EI_CLASS])
 	{
 		case ELFCLASSNONE:
@@ -106,7 +108,7 @@ void print_class(unsigned char *e_ident)
  */
 void print_data(unsigned char *e_ident)
 {
-	printf("Data: ");
+	printf("  Data:                              ");
 	switch (e_ident[EI_DATA])
 	{
 		case ELFDATANONE:
@@ -124,26 +126,28 @@ void print_data(unsigned char *e_ident)
 }
 
 /**
+ * print_version - prints the version of an ELF header.
+ * @e_ident: A pointer to the ELF header identification bytes.
+ */
 
-  print_version - prints the version of an ELF header.
-  @e_ident: A pointer to the ELF header identification bytes.
-  */
 void print_version(unsigned char *e_ident)
 {
-	printf("Version: %u", e_ident[EI_VERSION]);
+	printf("  Version:                           %d",
+	       e_ident[EI_VERSION]);
 	if (e_ident[EI_VERSION] == EV_CURRENT)
 		putchar('\n');
 	else
 		printf(" <unknown: %x>\n", e_ident[EI_VERSION]);
 }
-/**
 
-  print_osabi - prints the OS/ABI of an ELF header.
-  @e_ident: A pointer to the ELF header identification bytes.
-  */
+/**
+ * print_osabi - prints the OS/ABI of an ELF header.
+ * @e_ident: A pointer to the ELF header identification bytes.
+ */
+
 void print_osabi(unsigned char *e_ident)
 {
-	printf("OS/ABI: ");
+	printf("  OS/ABI:                            ");
 	switch (e_ident[EI_OSABI])
 	{
 		case ELFOSABI_NONE:
@@ -183,23 +187,26 @@ void print_osabi(unsigned char *e_ident)
 			printf("<unknown: %x>\n", e_ident[EI_OSABI]);
 	}
 }
-/**
 
-  print_abiversion - prints the ABI version of an ELF header.
-  @e_ident: A pointer to the ELF header identification bytes.
-  */
+/**
+ * print_abiversion - prints the ABI version of an ELF header.
+ * @e_ident: A pointer to the ELF header identification bytes.
+ */
+
 void print_abiversion(unsigned char *e_ident)
 {
-	printf("ABI Version: %u\n", e_ident[EI_ABIVERSION]);
+	printf("  ABI Version:                       %d\n",
+	       e_ident[EI_ABIVERSION]);
 }
-/**
 
-  print_type - prints the type of an ELF header.
-  @e_type: The type of ELF file.
-  */
+/**
+ * print_type - prints the type of an ELF header.
+ * @e_type: The type of ELF file.
+ */
+
 void print_type(uint16_t e_type)
 {
-	printf("Type: ");
+	printf("  Type:                              ");
 	switch (e_type)
 	{
 		case ET_NONE:
@@ -221,12 +228,13 @@ void print_type(uint16_t e_type)
 			printf("<unknown: %x>\n", e_type);
 	}
 }
-/**
 
-  print_entry - prints the entry point address of an ELF header.
-  @e_entry: The entry point address of an ELF header.
-  */
+/**
+ * print_entry - prints the entry point address of an ELF header.
+ * @e_entry: The entry point address of an ELF header.
+ */
+
 void print_entry(uint64_t e_entry)
 {
-	printf("Entry point address: %#lx\n", e_entry);
+	printf("  Entry point address:               %#lx\n", e_entry);
 }
