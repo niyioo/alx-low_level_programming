@@ -11,7 +11,6 @@
  * @status: The exit status code
  * @msg: The error message
  */
-
 void error_exit(int status, char *msg)
 {
 	dprintf(STDERR_FILENO, "%s\n", msg);
@@ -23,7 +22,6 @@ void error_exit(int status, char *msg)
  * @file_from: The name of the file to read from
  * @file_to: The name of the file to write to
  */
-
 void cp(char *file_from, char *file_to)
 {
 	int fd_from, fd_to;
@@ -59,7 +57,6 @@ void cp(char *file_from, char *file_to)
  * @argv: The argument vector
  * Return: Always 0 (success)
  */
-
 int main(int argc, char **argv)
 {
 	if (argc != 3)
