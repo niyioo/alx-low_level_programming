@@ -236,5 +236,5 @@ void print_type(uint16_t e_type)
 
 void print_entry(uint64_t e_entry)
 {
-	printf("  Entry point address:               %#x\n", (uint32_t)e_entry);
+        printf("  Entry point address:               %#lx\n", e_entry & 0xffffffff);
 }
