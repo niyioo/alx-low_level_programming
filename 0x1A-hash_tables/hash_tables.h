@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 /**
  * struct hash_node_s - Node of a hash table
@@ -48,5 +49,11 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value);
 
 /* Function to retrieve a value associated with a key */
 char *hash_table_get(const hash_table_t *ht, const char *key);
+
+/* Function to print a hash table */
+void hash_table_print(const hash_table_t *ht);
+
+/* Function to delete a hash table */
+void hash_table_delete(hash_table_t *ht);
 
 #endif /* HASH_TABLES_H */
