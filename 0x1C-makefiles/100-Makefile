@@ -3,27 +3,18 @@ SRC = main.c school.c
 OBJ = $(SRC:.c=.o)
 NAME = school
 CFLAGS = -Wall -Werror -Wextra -pedantic
-MKDIR_P = mkdir -p
 
 .PHONY: all clean oclean fclean re
 
-all: $(NAME)
-
-$(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
-
-$(OBJ): $(SRC) m.h
-	$(CC) -c -o $@ $(filter %.c,$^) $(CFLAGS)
+all: m.h $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
 
 clean:
-	-$(RM) *~
-	-$(RM) $(NAME)
+	$(RM) *~ $(NAME)
 
 oclean:
-	-$(RM) $(OBJ)
+	$(RM) $(OBJ)
 
-fclean: oclean
-	-$(RM) $(NAME)
+fclean: clean oclean
 
 re: fclean all
-
