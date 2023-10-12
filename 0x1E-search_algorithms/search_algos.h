@@ -52,7 +52,13 @@ int interpolation_search(int *array, size_t size, int value);
 /* Function to perform Exponential search */
 int exponential_search(int *array, size_t size, int value);
 
-/* Function to search for a value in a sorted list of integers using Jump search */
+/* Function to perform advanced binary search */
+int advanced_binary(int *array, size_t size, int value);
+
+/*
+ * Function to search for a value in a
+ * sorted list of integers using Jump search
+ */
 listint_t *jump_list(listint_t *list, size_t size, int value);
 
 /* Function to search for a value in a sorted skip list of integers */
